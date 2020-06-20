@@ -3,7 +3,7 @@ const { userService } = require('../services/user.service');
 const signup = async (req, res, next) => {
   try {
     const user = await userService.signUp(req.body);
-    res.json(user);
+    res.status(201).json(user);
   } catch (err) {
     next(err);
   }
