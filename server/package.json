@@ -2,11 +2,11 @@
   "name": "mern-calendar-server",
   "version": "1.0.0",
   "description": "Calendar app on MERN stack",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "start:debug": "nodemon --inspect-brk index.js",
-    "prod": "node index.js"
+    "start": "nodemon server.js",
+    "start:debug": "nodemon --inspect-brk server.js",
+    "prod": "node server.js"
   },
   "author": "Artem Loiko",
   "license": "ISC",
@@ -17,7 +17,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.19"
+    "mongoose": "^5.9.19",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
