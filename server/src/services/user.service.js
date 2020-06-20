@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+const { isValidDuration } = require('../validations/events.validation');
 const HttpError = require('../utils/httpError');
 const db = require('../models');
 const config = require('../config');
@@ -54,8 +55,29 @@ class UserService {
       id: user._id,
       username: user.username,
       email: user.email,
+      events: user.events,
       accessToken: this.getJwtToken(user._id),
     };
+  }
+
+  async getUserEvents(id) {
+    const user = await User.findById(id).exec();
+    return user.events;
+  }
+
+  async addUserEvent(id, eventDTO) {
+    if (!isValidDuration(eventDTO)) throw new HttpError('The event cannot end after 5 pm.', 422);
+    const user = await User.findById(id).exec();
+    user.events.push(eventDTO);
+    return user.save();
+  }
+
+  async deleteUserEvent(id, eventId) {
+    const user = await User.findById(id).exec();
+    const event = user.events.id(eventId);
+    if (!event) throw new HttpError('Cannot find event!', 404);
+    event.remove();
+    await user.save();
   }
 }
 
