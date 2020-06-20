@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon server.js",
     "start:debug": "nodemon --inspect-brk server.js",
-    "prod": "node server.js"
+    "prod": "node server.js",
+    "lint": "eslint src/",
+    "seed": "node src/seeder.js"
   },
   "author": "Artem Loiko",
   "license": "ISC",

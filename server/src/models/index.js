@@ -15,6 +15,7 @@ db.init = () => {
     })
     .then(() => {
       console.log('Successfully connect to MongoDB.');
+      db.connection = mongoose.connection;
     })
     .catch((err) => {
       console.log('Cannon connect to MongoDB!', err.message);
