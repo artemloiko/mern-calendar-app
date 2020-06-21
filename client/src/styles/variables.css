@@ -18,6 +18,7 @@
   --white-500: #ffffff;
 
   --blue-500: #6e9ecf;
+  --blue-200: #c9dbec;
   --blue-100: #e2ecf5;
 
   --typo-size-s: 12px;
@@ -48,6 +49,11 @@
 :root {
   --color-bg-base: var(--white-500);
   --color-bg-overlay: rgba(0, 0, 0, 0.4);
+
+  --color-border-timeline: var(--grey-200);
+  --event-color-border: var(--blue-500);
+  --event-color-bg: var(--blue-100);
+  --event-color-bg-hover: var(--blue-200);
 
   --color-text: var(--black-500);
   --color-text-secondary: var(--grey-600);
