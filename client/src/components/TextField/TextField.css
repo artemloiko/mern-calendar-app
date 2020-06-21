@@ -1,0 +1,19 @@
+.textfield {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--space-l);
+}
+
+.textfield__label {
+  color: var(--color-text-input-label);
+  font-size: var(--typo-size-s);
+  line-height: 1.3847;
+  letter-spacing: 0.06px;
+  text-align: left;
+}
+
+.textfield_required .textfield__label::after {
+  content: '*';
+  color: var(--color-text-input-required);
+  margin-left: var(--space-xxxxs);
+}

@@ -1,0 +1,34 @@
+.input {
+  width: fit-content;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  --clear-button-width: calc(16px + (var(--space-input-h) * 2));
+  --clear-button-height: calc(16px + (var(--space-input-top) + var(--space-input-bottom)));
+}
+
+.input_fullwidth {
+  width: 100%;
+}
+
+.input__text {
+  width: 100%;
+  padding: var(--space-input-top) var(--space-input-h) var(--space-input-bottom);
+  border: 2px solid var(--color-border-input);
+  border-radius: 4px;
+
+  font-size: var(--typo-size-s);
+  line-height: 1.1539;
+
+  color: var(--color-text);
+  background-color: var(--color-bg-input);
+}
+
+.input__text:focus {
+  outline: none;
+  border-color: var(--color-border-input-focused);
+}
+
+.input__text::placeholder {
+  color: var(--color-text-input-placeholder);
+}

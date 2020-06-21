@@ -1,0 +1,30 @@
+.button {
+  max-width: 100%;
+  padding: 0 var(--space-xl);
+  color: var(--color-text);
+
+  background-color: var(--color-bg-control);
+  border: 2px solid var(--color-bg-control);
+  border-radius: 4px;
+
+  line-height: 32px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-bg-control-hovered);
+  border-color: var(--color-bg-control-hovered);
+}
+.button:focus {
+  outline: none;
+  border-color: var(--color-border-control-focused);
+}
+
+.button__text {
+  font-size: var(--typo-size-s);
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+}
