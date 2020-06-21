@@ -38,7 +38,6 @@ class UserService {
     const savedUser = await user.save();
 
     return {
-      id: savedUser._id,
       accessToken: this.getJwtToken(savedUser._id),
     };
   }
@@ -47,7 +46,7 @@ class UserService {
     const { login, password } = signInDTO;
 
     const user = await User.findOne({ $or: [{ username: login }, { email: login }] }).exec();
-    const passwordIsValid = bcrypt.compareSync(password, user.password);
+    const passwordIsValid = user ? bcrypt.compareSync(password, user.password) : false;
 
     if (!user || !passwordIsValid) throw new HttpError('Password or login are wrong!', 401);
 
@@ -55,14 +54,13 @@ class UserService {
       id: user._id,
       username: user.username,
       email: user.email,
-      events: user.events,
       accessToken: this.getJwtToken(user._id),
     };
   }
 
   async getUserEvents(id) {
     const user = await User.findById(id).exec();
-    return user.events;
+    return user.events.sort((eventA, eventB) => eventA.start - eventB.start);
   }
 
   async addUserEvent(id, eventDTO) {
