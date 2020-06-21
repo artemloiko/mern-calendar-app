@@ -6,7 +6,7 @@
 
 .textfield__label {
   color: var(--color-text-input-label);
-  font-size: var(--typo-size-s);
+  font-size: var(--typo-size-l);
   line-height: 1.3847;
   letter-spacing: 0.06px;
   text-align: left;

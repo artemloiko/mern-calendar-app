@@ -1,5 +1,5 @@
 .input {
-  width: fit-content;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -7,8 +7,8 @@
   --clear-button-height: calc(16px + (var(--space-input-top) + var(--space-input-bottom)));
 }
 
-.input_fullwidth {
-  width: 100%;
+.input_short {
+  width: fit-content;
 }
 
 .input__text {
@@ -17,7 +17,7 @@
   border: 2px solid var(--color-border-input);
   border-radius: 4px;
 
-  font-size: var(--typo-size-s);
+  font-size: var(--typo-size-l);
   line-height: 1.1539;
 
   color: var(--color-text);

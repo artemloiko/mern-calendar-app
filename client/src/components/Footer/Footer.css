@@ -10,7 +10,7 @@
   padding-top: var(--space-footer-v);
   padding-bottom: var(--space-footer-v);
   color: var(--color-text-footer);
-  font-size: var(--typo-size-s);
+  font-size: var(--typo-size-l);
   line-height: 1.25;
 }
 

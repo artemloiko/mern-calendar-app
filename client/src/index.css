@@ -16,6 +16,13 @@ form {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  width: 100%;
+}
+
+.error-message {
+  color: #ff3333;
+  margin-top: 0;
+  font-size: var(--typo-size-s);
 }
 
 *,

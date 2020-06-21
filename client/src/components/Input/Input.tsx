@@ -3,7 +3,7 @@ import clsx from 'clsx';
 
 import './Input.css';
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+type InputProps = React.HTMLProps<HTMLInputElement>;
 
 const Input: React.FC<InputProps> = (props) => {
   const { className, ...inputProps } = props;

@@ -21,7 +21,7 @@
 }
 
 .button__text {
-  font-size: var(--typo-size-s);
+  font-size: var(--typo-size-l);
   max-width: 100%;
   text-overflow: ellipsis;
   overflow: hidden;

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactChild } from 'react';
 import clsx from 'clsx';
 
 import './Button.css';
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  children: string;
+  children: ReactChild;
   className?: string;
 };
 
