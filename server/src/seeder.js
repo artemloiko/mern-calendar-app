@@ -39,8 +39,12 @@ const users = [
 
 async function seed() {
   await db.init();
-  await db.connection.dropCollection(config.dbName);
-  console.log('Successfully dropped collection');
+  try {
+    await db.connection.dropCollection(config.dbName);
+    console.log('Successfully dropped collection');
+  } catch (err) {
+    console.log("Collection wasn't found. Just feel new collection with items.");
+  }
   const result = await db.User.insertMany(users);
   console.log('Successfully added', result.insertedCount, 'users');
   process.exit(0);
