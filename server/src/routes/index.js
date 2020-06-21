@@ -10,6 +10,7 @@ const init = (server) => {
   server.use(express.static(pathToBuild));
   // eslint-disable-next-line no-unused-vars
   server.use((err, req, res, next) => {
+    if (!err.status || err.status == 500) console.log('[INTERNAL ERROR]', err);
     res.status(err.status || 500);
     res.json({
       error: {
