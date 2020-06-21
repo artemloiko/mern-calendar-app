@@ -2,13 +2,7 @@ import React, { useMemo } from 'react';
 import './EventGrid.css';
 import clsx from 'clsx';
 import { useKeyboardClick } from 'hooks/useKeyboardClick';
-
-export interface Event {
-  _id: string;
-  start: number;
-  duration: number;
-  title: string;
-}
+import { Event } from 'utils/api';
 
 type EventGridProps = {
   events: Event[];

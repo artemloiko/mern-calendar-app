@@ -1,10 +1,15 @@
+import { combineReducers } from 'redux';
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import authReducer from 'features/auth/authSlice';
+import eventsReducer from 'features/events/eventsSlice';
+
+const rootReducer = combineReducers({
+  auth: authReducer,
+  events: eventsReducer,
+});
 
 export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

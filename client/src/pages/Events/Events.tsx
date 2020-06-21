@@ -2,7 +2,8 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
-import EventsList, { Event } from 'components/EventGrid/EventGrid';
+import EventsList from 'components/EventGrid/EventGrid';
+import { Event } from 'utils/api';
 
 const events: Event[] = [
   {
