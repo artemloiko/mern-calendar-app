@@ -14,6 +14,7 @@ import { Event } from 'utils/api';
 import { RootState } from 'app/store';
 import { useModal } from 'hooks/useModal';
 import { loadEvents } from 'features/events/eventsSlice';
+import { authExpired } from 'features/auth/authSlice';
 import { downloadObjectAsJson } from 'utils/exportJson';
 
 const Events: React.FC<RouteComponentProps> = () => {
@@ -42,6 +43,10 @@ const Events: React.FC<RouteComponentProps> = () => {
     downloadObjectAsJson(eventsToExport, 'events');
   };
 
+  const signOut = () => {
+    dispatch(authExpired());
+  };
+
   return (
     <Page
       contentClass="container"
@@ -52,6 +57,9 @@ const Events: React.FC<RouteComponentProps> = () => {
           </Button>
           <Button className="header__control" onClick={exportEvents}>
             Export
+          </Button>
+          <Button className="header__control" onClick={signOut}>
+            Sign out
           </Button>
         </>
       }
