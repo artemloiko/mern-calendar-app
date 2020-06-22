@@ -11,6 +11,7 @@
 }
 
 .event-grid__elem {
+  border: none;
   background-color: var(--event-color-bg);
   border-left: 2px solid var(--event-color-border);
   font-size: var(--typo-size-m);

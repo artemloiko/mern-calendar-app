@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
-import './EventGrid.css';
 import clsx from 'clsx';
 import { Event } from 'utils/api';
+
+import './EventGrid.css';
 
 const HOURS_PER_DAY = 9;
 const HALF_HOURS_PER_DAY = HOURS_PER_DAY * 2;
@@ -88,7 +89,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events, handleEventClick }) => {
       >
         {drawableEvents.map(({ _id, title, start, duration, overlapDepth, overlapPosition }) => {
           return (
-            <div
+            <button
               key={_id}
               className="event-grid__elem"
               style={{
@@ -97,11 +98,10 @@ const EventGrid: React.FC<EventGridProps> = ({ events, handleEventClick }) => {
                 width: `calc(100% / ${overlapDepth})`,
                 left: `calc((100% / ${overlapDepth}) * ${overlapPosition})`,
               }}
-              tabIndex={0}
               onClick={() => openEventModal(_id)}
             >
               {title}
-            </div>
+            </button>
           );
         })}
       </div>
