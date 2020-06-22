@@ -55,7 +55,7 @@ class API {
   }
 
   async signUp(signUpDTO: SignUpDTO) {
-    const response = await this.axiosInstance.post<string>('/auth/signup', signUpDTO);
+    const response = await this.axiosInstance.post<User>('/auth/signup', signUpDTO);
     return response.data;
   }
 
