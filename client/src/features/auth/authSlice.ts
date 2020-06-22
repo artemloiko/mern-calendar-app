@@ -44,12 +44,21 @@ export const authSlice = createSlice({
     authClearError(state) {
       state.error = undefined;
     },
+    authExpired(state) {
+      state.token = undefined;
+    },
   },
 });
 
 export default authSlice.reducer;
 
-export const { authRequest, authFail, authSuccess, authClearError } = authSlice.actions;
+export const {
+  authRequest,
+  authFail,
+  authSuccess,
+  authClearError,
+  authExpired,
+} = authSlice.actions;
 
 export function signIn(
   signInDTO: SignInDTO,

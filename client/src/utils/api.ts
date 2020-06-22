@@ -25,10 +25,16 @@ export interface SignUpDTO {
   password: string;
 }
 
+export interface EventDTO {
+  start: number;
+  duration: number;
+  title: string;
+}
+
 const axiosAPI = axios.create({
   baseURL: '/api',
   headers: {
-    Authorization: localStorage.getItem('jwt_token') || '',
+    Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
   },
 });
 
@@ -39,7 +45,7 @@ class API {
 
   getAuthHeaders() {
     return {
-      Authorization: localStorage.getItem('jwt_token') || '',
+      Authorization: `Bearer ${localStorage.getItem('jwt_token')}`,
     };
   }
 
@@ -49,10 +55,28 @@ class API {
   }
 
   async signUp(signUpDTO: SignUpDTO) {
-    const response = await this.axiosInstance.post<string>('/auth/signup', signUpDTO, {
+    const response = await this.axiosInstance.post<string>('/auth/signup', signUpDTO);
+    return response.data;
+  }
+
+  async getEvents() {
+    const response = await this.axiosInstance.get<Event[]>('/events', {
       headers: this.getAuthHeaders(),
     });
     return response.data;
+  }
+
+  async addEvent(eventDTO: EventDTO) {
+    const response = await this.axiosInstance.post<Event>('/events', eventDTO, {
+      headers: this.getAuthHeaders(),
+    });
+    return response.data;
+  }
+
+  async deleteEvent(eventId: string) {
+    await this.axiosInstance.delete<void>(`/events/:${eventId}`, {
+      headers: this.getAuthHeaders(),
+    });
   }
 }
 
