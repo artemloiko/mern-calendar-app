@@ -3,6 +3,7 @@
   "description": "Client for MERN Calendar app",
   "version": "0.1.0",
   "proxy": "http://localhost:8080",
+  "homepage": "/app",
   "dependencies": {
     "@reach/router": "^1.3.3",
     "@reduxjs/toolkit": "^1.3.6",

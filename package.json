@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "i:client": "cd client && npm install",
+    "i:server": "cd server && npm install",
+    "setup": "npx npm-run-all --parallel i:*",
+    "prod": "cd client && npm run build && cd ../server && npm run prod"
   },
   "author": "Artem Loiko",
   "license": "ISC",
