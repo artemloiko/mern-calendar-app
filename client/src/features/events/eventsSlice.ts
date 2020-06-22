@@ -6,11 +6,13 @@ import { authExpired } from 'features/auth/authSlice';
 interface EventsState {
   isLoading: boolean;
   list: Event[];
+  isSyncing: boolean;
 }
 
 const initialState: EventsState = {
   isLoading: true,
   list: [],
+  isSyncing: false,
 };
 
 export const eventsSlice = createSlice({
@@ -24,21 +26,36 @@ export const eventsSlice = createSlice({
       state.list = action.payload;
       state.isLoading = false;
     },
+    syncEventRequest(state) {
+      state.isSyncing = true;
+    },
+    syncEventFail(state) {
+      state.isSyncing = false;
+    },
     addEvent(state, action: PayloadAction<Event>) {
       const event = action.payload;
       state.list.push(event);
       state.list.sort((eventA, eventB) => eventA.start - eventB.start);
+      state.isSyncing = false;
     },
     deleteEvent(state, action: PayloadAction<Event>) {
       const eventToDelete = action.payload;
       state.list = state.list.filter((event) => event._id !== eventToDelete._id);
+      state.isSyncing = false;
     },
   },
 });
 
 export default eventsSlice.reducer;
 
-export const { eventsRequest, eventsSuccess, addEvent, deleteEvent } = eventsSlice.actions;
+export const {
+  eventsRequest,
+  eventsSuccess,
+  syncEventRequest,
+  syncEventFail,
+  addEvent,
+  deleteEvent,
+} = eventsSlice.actions;
 
 async function handleEventError(
   cb: () => Promise<void>,
@@ -53,6 +70,7 @@ async function handleEventError(
       if (error.response?.status === 401 || error.response?.status === 403) {
         alert('Session has expired, please login again.');
         dispatch(authExpired());
+        dispatch(syncEventFail());
       } else {
         alert(errorMessage);
       }
@@ -72,12 +90,14 @@ export function loadEvents(): ThunkAction<void, RootState, unknown, Action<strin
 
 export function saveEvent(
   eventDTO: EventDTO,
+  successCb: () => void,
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async (dispatch) => {
-    dispatch(eventsRequest());
+    dispatch(syncEventRequest());
     handleEventError(async () => {
       const data = await api.addEvent(eventDTO);
       dispatch(addEvent(data));
+      successCb();
     }, dispatch);
   };
 }
@@ -86,7 +106,6 @@ export function removeEvent(
   eventId: string,
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async (dispatch) => {
-    dispatch(eventsRequest());
     handleEventError(async () => {
       await api.deleteEvent(eventId);
     }, dispatch);
