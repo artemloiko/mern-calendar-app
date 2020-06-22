@@ -1,0 +1,13 @@
+.delete-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-modal__heading {
+  font-size: 400;
+  margin-bottom: 0;
+}
+
+.delete-modal__button {
+  margin: auto;
+}

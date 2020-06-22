@@ -1,12 +1,7 @@
 import React, { useMemo } from 'react';
 import './EventGrid.css';
 import clsx from 'clsx';
-import { useKeyboardClick } from 'hooks/useKeyboardClick';
 import { Event } from 'utils/api';
-
-type EventGridProps = {
-  events: Event[];
-};
 
 const HOURS_PER_DAY = 9;
 const HALF_HOURS_PER_DAY = HOURS_PER_DAY * 2;
@@ -55,13 +50,17 @@ export function calculateDrawableEvents(events: Event[]): DrawableEvent[] {
 // prettier-ignore
 const timelineValues = ['8:00', '8:30', '9:00', '9:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00'];
 
-const EventGrid: React.FC<EventGridProps> = ({ events }) => {
+type EventGridProps = {
+  events: Event[];
+  handleEventClick: (ev: Event) => void;
+};
+
+const EventGrid: React.FC<EventGridProps> = ({ events, handleEventClick }) => {
   const drawableEvents = useMemo(() => calculateDrawableEvents(events), [events]);
 
-  const openEventModal = () => {
-    console.log('Open modal with deletion confirmation');
+  const openEventModal = (eventId: string) => {
+    handleEventClick(events.find((event) => event._id === eventId)!);
   };
-  const keyDownHandler = useKeyboardClick(openEventModal);
 
   return (
     <div className="event-grid__wrapper">
@@ -99,8 +98,7 @@ const EventGrid: React.FC<EventGridProps> = ({ events }) => {
                 left: `calc((100% / ${overlapDepth}) * ${overlapPosition})`,
               }}
               tabIndex={0}
-              onClick={openEventModal}
-              onKeyDown={keyDownHandler}
+              onClick={() => openEventModal(_id)}
             >
               {title}
             </div>

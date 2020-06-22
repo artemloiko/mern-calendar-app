@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from '@reach/router';
+
 import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
 import EventsList from 'components/EventGrid/EventGrid';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadEvents } from 'features/events/eventsSlice';
-import { RootState } from 'app/store';
 import Spinner from 'components/Spinner/Spinner';
-import { useModal } from 'hooks/useModal';
+
 import AddEventModal from './components/AddEventModal/AddEventModal';
+import DeleteEventModal from './components/DeleteEventModal/DeleteEventModal';
+
+import { Event } from 'utils/api';
+import { RootState } from 'app/store';
+import { useModal } from 'hooks/useModal';
+import { loadEvents } from 'features/events/eventsSlice';
 
 const Events: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -19,6 +24,13 @@ const Events: React.FC<RouteComponentProps> = () => {
   }, [dispatch]);
 
   const [isAddEventModalOpen, handleAddEventModalOpen, handleAddEventModalClose] = useModal();
+  const [isDeleteEventOpen, handleDeleteEventOpen, handleDeleteEventClose] = useModal();
+
+  const [curEvent, setCurEvent] = useState<Event>();
+  const openDeleteModalWithEvent = (event: Event) => {
+    setCurEvent(event);
+    handleDeleteEventOpen();
+  };
 
   return (
     <Page
@@ -32,11 +44,20 @@ const Events: React.FC<RouteComponentProps> = () => {
         </>
       }
     >
-      {events.isLoading ? <Spinner /> : <EventsList events={events.list}></EventsList>}
+      {events.isLoading ? (
+        <Spinner />
+      ) : (
+        <EventsList events={events.list} handleEventClick={openDeleteModalWithEvent}></EventsList>
+      )}
       <AddEventModal
         isOpen={isAddEventModalOpen}
         closeModal={handleAddEventModalClose}
       ></AddEventModal>
+      <DeleteEventModal
+        isOpen={isDeleteEventOpen}
+        closeModal={handleDeleteEventClose}
+        eventToDelete={curEvent}
+      ></DeleteEventModal>
     </Page>
   );
 };

@@ -74,7 +74,7 @@ class API {
   }
 
   async deleteEvent(eventId: string) {
-    await this.axiosInstance.delete<void>(`/events/:${eventId}`, {
+    await this.axiosInstance.delete<void>(`/events/${eventId}`, {
       headers: this.getAuthHeaders(),
     });
   }

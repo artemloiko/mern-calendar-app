@@ -70,10 +70,10 @@ async function handleEventError(
       if (error.response?.status === 401 || error.response?.status === 403) {
         alert('Session has expired, please login again.');
         dispatch(authExpired());
-        dispatch(syncEventFail());
       } else {
         alert(errorMessage);
       }
+      dispatch(syncEventFail());
     }
   }
 }
@@ -103,11 +103,15 @@ export function saveEvent(
 }
 
 export function removeEvent(
-  eventId: string,
+  event: Event,
+  successCb: () => void,
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async (dispatch) => {
+    dispatch(syncEventRequest());
     handleEventError(async () => {
-      await api.deleteEvent(eventId);
+      await api.deleteEvent(event._id);
+      dispatch(deleteEvent(event));
+      successCb();
     }, dispatch);
   };
 }
