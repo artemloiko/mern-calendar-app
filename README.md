@@ -8,7 +8,7 @@ Please, be sure you're using suitable version of node.js and npm
 
 ```bash
 npm run setup // it will install all dependencies in parallel
-npm run prod // it will build client and start node.js backend with serving static files
+npm run prod // it will build client and start node.js backend with serving static files http://localhost:8080
 # or you can install dependencies by yourself
 cd client && npm install // install client dependencies
 cd server && npm install // install server dependencies
