@@ -12,8 +12,8 @@ const getEvents = async (req, res, next) => {
 const addEvent = async (req, res, next) => {
   try {
     const eventDTO = req.body;
-    await userService.addUserEvent(req.userId, eventDTO);
-    res.status(201).json();
+    const event = await userService.addUserEvent(req.userId, eventDTO);
+    res.status(201).json(event);
   } catch (err) {
     next(err);
   }

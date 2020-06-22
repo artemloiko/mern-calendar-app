@@ -67,7 +67,8 @@ class UserService {
     if (!isValidDuration(eventDTO)) throw new HttpError('The event cannot end after 5 pm.', 422);
     const user = await User.findById(id).exec();
     user.events.push(eventDTO);
-    return user.save();
+    await user.save();
+    return user.events[user.events.length - 1];
   }
 
   async deleteUserEvent(id, eventId) {
