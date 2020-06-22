@@ -38,6 +38,9 @@ class UserService {
     const savedUser = await user.save();
 
     return {
+      id: savedUser._id,
+      username: savedUser.username,
+      email: savedUser.email,
       accessToken: this.getJwtToken(savedUser._id),
     };
   }
