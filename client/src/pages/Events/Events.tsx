@@ -14,6 +14,7 @@ import { Event } from 'utils/api';
 import { RootState } from 'app/store';
 import { useModal } from 'hooks/useModal';
 import { loadEvents } from 'features/events/eventsSlice';
+import { downloadObjectAsJson } from 'utils/exportJson';
 
 const Events: React.FC<RouteComponentProps> = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,15 @@ const Events: React.FC<RouteComponentProps> = () => {
     handleDeleteEventOpen();
   };
 
+  const exportEvents = () => {
+    const eventsToExport = events.list.map(({ start, duration, title }) => ({
+      start,
+      duration,
+      title,
+    }));
+    downloadObjectAsJson(eventsToExport, 'events');
+  };
+
   return (
     <Page
       contentClass="container"
@@ -40,7 +50,9 @@ const Events: React.FC<RouteComponentProps> = () => {
           <Button className="header__control" onClick={handleAddEventModalOpen}>
             Add Event
           </Button>
-          <Button className="header__control">Export</Button>
+          <Button className="header__control" onClick={exportEvents}>
+            Export
+          </Button>
         </>
       }
     >
