@@ -5,8 +5,6 @@ import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import Events from 'pages/Events/Events';
 import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 
-import './App.css';
-
 function App() {
   return (
     <Router>

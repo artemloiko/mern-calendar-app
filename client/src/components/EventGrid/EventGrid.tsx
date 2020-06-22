@@ -100,7 +100,9 @@ const EventGrid: React.FC<EventGridProps> = ({ events, handleEventClick }) => {
               }}
               onClick={() => openEventModal(_id)}
             >
-              {title}
+              <span className="event-grid__elem-text" title={title}>
+                {title}
+              </span>
             </button>
           );
         })}

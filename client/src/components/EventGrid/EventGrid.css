@@ -11,13 +11,21 @@
 }
 
 .event-grid__elem {
+  overflow: hidden;
+  display: flex;
   border: none;
   background-color: var(--event-color-bg);
   border-left: 2px solid var(--event-color-border);
+  font-family: 'Open Sans', sans-serif;
   font-size: var(--typo-size-m);
   padding: var(--space-xxxs);
   position: absolute;
   cursor: pointer;
+}
+.event-grid__elem-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .event-grid__elem:hover {
@@ -30,6 +38,7 @@
 
 .timeline-time {
   font-size: var(--typo-size-l);
+  font-weight: 300;
   text-align: center;
   line-height: 1.5;
 }

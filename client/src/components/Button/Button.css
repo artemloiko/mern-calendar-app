@@ -1,4 +1,5 @@
 .button {
+  font-family: 'Open Sans', sans-serif;
   max-width: 100%;
   padding: 0 var(--space-xl);
   color: var(--color-text);
