@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Input from 'components/Input/Input';
 import TextField from 'components/TextField/TextField';
 import Modal from 'components/Modal/Modal';
 import Button from 'components/Button/Button';
 import Spinner from 'components/Spinner/Spinner';
-import { signIn } from 'features/auth/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { signIn, authClearError } from 'features/auth/authSlice';
 import { RootState } from 'app/store';
 
 type LoginModalProps = {
@@ -26,8 +27,15 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, closeModal }) => {
     dispatch(signIn({ login, password }));
   };
 
+  const handleClose = () => {
+    setLogin('');
+    setPassword('');
+    dispatch(authClearError());
+    closeModal();
+  };
+
   return (
-    <Modal isOpen={isOpen} onRequestClose={closeModal}>
+    <Modal isOpen={isOpen} onRequestClose={handleClose}>
       <form onSubmit={handleSubmit}>
         <TextField label="Username or Email" htmlFor="login">
           <Input

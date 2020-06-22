@@ -41,12 +41,15 @@ export const authSlice = createSlice({
       state.token = payload.accessToken;
       state.isAuthenticating = false;
     },
+    authClearError(state) {
+      state.error = undefined;
+    },
   },
 });
 
 export default authSlice.reducer;
 
-export const { authRequest, authFail, authSuccess } = authSlice.actions;
+export const { authRequest, authFail, authSuccess, authClearError } = authSlice.actions;
 
 export function signIn(
   signInDTO: SignInDTO,
