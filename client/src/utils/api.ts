@@ -28,7 +28,7 @@ export interface SignUpDTO {
 const axiosAPI = axios.create({
   baseURL: '/api',
   headers: {
-    Authorization: localStorage.getItem('jwt_token'),
+    Authorization: localStorage.getItem('jwt_token') || '',
   },
 });
 
@@ -39,7 +39,7 @@ class API {
 
   getAuthHeaders() {
     return {
-      Authorization: localStorage.getItem('jwt_token'),
+      Authorization: localStorage.getItem('jwt_token') || '',
     };
   }
 

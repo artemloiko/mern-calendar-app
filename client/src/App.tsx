@@ -1,16 +1,17 @@
 import React from 'react';
 import { Router } from '@reach/router';
-import Home from 'pages/Home/Home';
+import Login from 'pages/Login/Login';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import Events from 'pages/Events/Events';
+import ProtectedRoute from 'components/ProtectedRoute/ProtectedRoute';
 
 import './App.css';
 
 function App() {
   return (
     <Router>
-      <Home path="/" />
-      <Events path="/events" />
+      <ProtectedRoute path="/" as={Events}></ProtectedRoute>
+      <Login path="/login" />
       <ErrorPage default />
     </Router>
   );

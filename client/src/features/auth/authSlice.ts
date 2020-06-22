@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, ThunkAction, Action } from '@reduxjs/toolkit';
+import { navigate } from '@reach/router';
 import api, { User, SignInDTO, isAxiosError } from 'utils/api';
 import { RootState } from 'app/store';
 
@@ -9,8 +10,17 @@ interface AuthState {
   user?: User;
 }
 
+const readUserFromLS = (): User | undefined => {
+  try {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : undefined;
+  } catch (error) {}
+};
+
 const initialState: AuthState = {
   isAuthenticating: false,
+  token: localStorage.getItem('jwt_token') || undefined,
+  user: readUserFromLS(),
 };
 
 export const authSlice = createSlice({
@@ -38,7 +48,6 @@ export default authSlice.reducer;
 
 export const { authRequest, authFail, authSuccess } = authSlice.actions;
 
-
 export function signIn(
   signInDTO: SignInDTO,
 ): ThunkAction<void, RootState, unknown, Action<string>> {
@@ -46,9 +55,11 @@ export function signIn(
     dispatch(authRequest());
     try {
       const data = await api.signIn(signInDTO);
+      localStorage.setItem('jwt_token', data.accessToken);
+      localStorage.setItem('user', JSON.stringify(data));
       dispatch(authSuccess(data));
+      navigate('/');
     } catch (error) {
-      console.dir(error);
       let errorMessage = error.message;
       if (isAxiosError(error)) {
         errorMessage = error.response?.data.error?.message || error.message;
